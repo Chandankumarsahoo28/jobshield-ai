@@ -7,7 +7,7 @@ st.set_page_config(
     page_title="JobShield AI",
     page_icon="🛡️",
     layout="wide",
-    initial_sidebar_state="auto"
+    initial_sidebar_state="expanded"
 )
 
 # ---------------- LOAD MODEL ----------------
@@ -49,7 +49,8 @@ footer {
 }
 
 header {
-    visibility: hidden;
+    visibility: visible !important;
+    background: transparent !important;
 }
 
 /* ---------------- TITLE ---------------- */
@@ -285,7 +286,12 @@ header {
     }
 
     section[data-testid="stSidebar"] {
-        width: 100% !important;
+        min-width: 260px !important;
+        max-width: 260px !important;
+    }
+
+    button[kind="header"] {
+        display: block !important;
     }
 
     .block-container {
@@ -397,13 +403,10 @@ if st.button("🔍 Analyze Job Posting"):
 
     else:
 
-        # Transform
         data = vectorizer.transform([job_text])
 
-        # Prediction
         prediction = model.predict(data)
 
-        # Probability
         probability = model.predict_proba(data)
 
         fake_score = probability[0][1] * 100
