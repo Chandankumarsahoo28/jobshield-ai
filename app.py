@@ -20,25 +20,27 @@ vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 st.markdown("""
 <style>
 
-/* ---------------- MAIN BACKGROUND ---------------- */
+/* Main Background */
 
 .stApp {
     background: linear-gradient(135deg, #020617, #071226, #0f172a);
     color: white;
 }
 
-/* ---------------- SIDEBAR ---------------- */
+/* Sidebar */
 
 section[data-testid="stSidebar"] {
-    background: rgba(5, 10, 25, 0.96);
+    background: rgba(5, 10, 25, 0.95);
     border-right: 1px solid rgba(255,255,255,0.08);
 }
+
+/* Sidebar Text */
 
 section[data-testid="stSidebar"] * {
     color: white;
 }
 
-/* ---------------- HIDE STREAMLIT ---------------- */
+/* Hide Streamlit Branding */
 
 #MainMenu {
     visibility: hidden;
@@ -49,11 +51,10 @@ footer {
 }
 
 header {
-    visibility: visible !important;
-    background: transparent !important;
+    visibility: hidden;
 }
 
-/* ---------------- TITLE ---------------- */
+/* Title */
 
 .main-title {
     font-size: 65px;
@@ -64,7 +65,7 @@ header {
     margin-bottom: 0px;
 }
 
-/* ---------------- SUBTITLE ---------------- */
+/* Subtitle */
 
 .subtitle {
     color: #94a3b8;
@@ -72,7 +73,7 @@ header {
     margin-top: -10px;
 }
 
-/* ---------------- GLASS CARD ---------------- */
+/* Glass Card */
 
 .glass-card {
     background: rgba(255,255,255,0.04);
@@ -83,10 +84,10 @@ header {
     box-shadow: 0 0 40px rgba(0,0,0,0.4);
 }
 
-/* ---------------- TEXT AREA ---------------- */
+/* Text Area */
 
 .stTextArea textarea {
-    background: rgba(2,6,23,0.95);
+    background: rgba(2,6,23,0.9);
     color: white;
     border: 2px solid #0ea5e9;
     border-radius: 20px;
@@ -95,7 +96,7 @@ header {
     min-height: 250px;
 }
 
-/* ---------------- BUTTON ---------------- */
+/* Button */
 
 .stButton button {
     width: 100%;
@@ -115,7 +116,7 @@ header {
     box-shadow: 0 0 35px rgba(6,182,212,0.8);
 }
 
-/* ---------------- RESULT CARD ---------------- */
+/* Result Card */
 
 .result-card {
     padding: 18px;
@@ -133,7 +134,7 @@ header {
     animation: popup 0.4s ease;
 }
 
-/* ---------------- FAKE ---------------- */
+/* Fake */
 
 .fake {
     background: rgba(255,0,0,0.1);
@@ -142,7 +143,7 @@ header {
     box-shadow: 0 0 20px rgba(255,0,0,0.3);
 }
 
-/* ---------------- REAL ---------------- */
+/* Real */
 
 .real {
     background: rgba(0,255,127,0.1);
@@ -151,7 +152,7 @@ header {
     box-shadow: 0 0 20px rgba(34,197,94,0.3);
 }
 
-/* ---------------- FEATURE CARDS ---------------- */
+/* Feature Cards */
 
 .feature-card {
     background: rgba(255,255,255,0.04);
@@ -176,6 +177,8 @@ header {
     box-shadow: 0 0 30px rgba(56,189,248,0.3);
 }
 
+/* Feature Card Heading */
+
 .feature-card h2 {
     font-size: 22px;
     margin-top: 15px;
@@ -183,13 +186,15 @@ header {
     line-height: 1.3;
 }
 
+/* Feature Card Paragraph */
+
 .feature-card p {
     font-size: 16px;
     color: #cbd5e1;
     line-height: 1.6;
 }
 
-/* ---------------- METRIC CARD ---------------- */
+/* Metrics */
 
 .metric-card {
     background: rgba(255,255,255,0.04);
@@ -199,7 +204,7 @@ header {
     margin-top: 10px;
 }
 
-/* ---------------- FOOTER ---------------- */
+/* Footer */
 
 .footer {
     text-align: center;
@@ -207,7 +212,7 @@ header {
     margin-top: 50px;
 }
 
-/* ---------------- ANIMATION ---------------- */
+/* Animation */
 
 @keyframes popup {
 
@@ -222,91 +227,12 @@ header {
     }
 }
 
-/* ---------------- MOBILE RESPONSIVE ---------------- */
-
-@media screen and (max-width: 768px) {
-
-    .main-title {
-        font-size: 38px !important;
-        text-align: center;
-    }
-
-    .subtitle {
-        font-size: 16px !important;
-        text-align: center;
-        margin-top: 5px;
-    }
-
-    .stImage img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .glass-card {
-        padding: 20px !important;
-        border-radius: 20px !important;
-    }
-
-    .stTextArea textarea {
-        font-size: 15px !important;
-        min-height: 200px !important;
-    }
-
-    .stButton button {
-        height: 55px !important;
-        font-size: 18px !important;
-    }
-
-    .result-card {
-        width: 100% !important;
-        font-size: 18px !important;
-        padding: 15px !important;
-    }
-
-    .feature-card {
-        min-height: auto !important;
-        margin-bottom: 20px;
-    }
-
-    .feature-card h2 {
-        font-size: 20px !important;
-    }
-
-    .feature-card p {
-        font-size: 14px !important;
-    }
-
-    .metric-card h1 {
-        font-size: 28px !important;
-    }
-
-    .metric-card h2 {
-        font-size: 18px !important;
-    }
-
-    section[data-testid="stSidebar"] {
-        min-width: 260px !important;
-        max-width: 260px !important;
-    }
-
-    button[kind="header"] {
-        display: block !important;
-    }
-
-    .block-container {
-        padding-top: 1rem !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
-}
-
 </style>
 """, unsafe_allow_html=True)
 
 # ---------------- SIDEBAR ----------------
 
-st.sidebar.image("logo.png", width=200)
+st.sidebar.image("logo.png", width=220)
 
 st.sidebar.markdown("# 🛡️ JobShield AI")
 
@@ -363,10 +289,10 @@ st.sidebar.markdown(
 
 # ---------------- HEADER ----------------
 
-col1, col2 = st.columns([1,4])
+col1, col2 = st.columns([1,5])
 
 with col1:
-    st.image("logo.png", width=120)
+    st.image("logo.png", width=180)
 
 with col2:
 
@@ -403,10 +329,13 @@ if st.button("🔍 Analyze Job Posting"):
 
     else:
 
+        # Transform
         data = vectorizer.transform([job_text])
 
+        # Prediction
         prediction = model.predict(data)
 
+        # Probability
         probability = model.predict_proba(data)
 
         fake_score = probability[0][1] * 100
@@ -460,7 +389,7 @@ if st.button("🔍 Analyze Job Posting"):
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------------- FEATURES ----------------
+# ---------------- FEATURE SECTION ----------------
 
 st.write("")
 st.write("")
@@ -487,7 +416,8 @@ with col2:
     <h1>⚡</h1>
     <h2>Instant Results</h2>
     <p>
-    Get prediction and confidence scores instantly.
+    Get prediction and confidence scores
+    instantly.
     </p>
     </div>
     """, unsafe_allow_html=True)
@@ -498,7 +428,8 @@ with col3:
     <h1>🎯</h1>
     <h2>High Accuracy</h2>
     <p>
-    Trained on thousands of real & fake job postings.
+    Trained on thousands of real & fake
+    job postings.
     </p>
     </div>
     """, unsafe_allow_html=True)
@@ -509,7 +440,8 @@ with col4:
     <h1>🧠</h1>
     <h2>NLP Technology</h2>
     <p>
-    Uses Natural Language Processing for analysis.
+    Uses Natural Language Processing
+    for analysis.
     </p>
     </div>
     """, unsafe_allow_html=True)
