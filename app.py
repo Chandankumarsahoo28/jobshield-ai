@@ -449,10 +449,9 @@ st.write("")
 
 # ---------------- TOP TABS ---------------- #
 
-tab1, tab2, tab3, tab4 = st.tabs([
+tab1, tab2, tab3 = st.tabs([
     "🏠 Home",
     "📊 Analyze",
-    "📁 Results",
     "⚙️ Settings"
 ])
 
@@ -582,27 +581,9 @@ with tab2:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ================= RESULTS TAB ================= #
-
-with tab3:
-
-    st.markdown("""
-    <div class="glass-card">
-
-    <h2>📁 Saved Results</h2>
-
-    <p style="color:#cbd5e1;font-size:18px;">
-
-    Future prediction history and saved reports will appear here.
-
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
 # ================= SETTINGS TAB ================= #
 
-with tab4:
+with tab3:
 
     st.markdown("""
     <div class="glass-card">
@@ -633,7 +614,7 @@ with tab4:
 st.markdown("""
 <div class="footer">
 
-Made by Chandan
+MADE BY CHANDAN
 
 </div>
 """, unsafe_allow_html=True)
