@@ -1,46 +1,129 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pickle
 
-# ---------------- PAGE CONFIG ----------------
+# ---------------- PAGE CONFIG ---------------- #
 
 st.set_page_config(
     page_title="JobShield AI",
     page_icon="🛡️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
-# ---------------- LOAD MODEL ----------------
+# ---------------- PARTICLES BACKGROUND ---------------- #
+
+particles_html = """
+<div id="particles-js"></div>
+
+<style>
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+particlesJS("particles-js", {
+
+  "particles": {
+
+    "number": {
+      "value": 70
+    },
+
+    "color": {
+      "value": "#38bdf8"
+    },
+
+    "shape": {
+      "type": "circle"
+    },
+
+    "opacity": {
+      "value": 0.5
+    },
+
+    "size": {
+      "value": 3
+    },
+
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#38bdf8",
+      "opacity": 0.4,
+      "width": 1
+    },
+
+    "move": {
+      "enable": true,
+      "speed": 2
+    }
+  }
+
+});
+</script>
+"""
+
+components.html(particles_html, height=0)
+
+# ---------------- LOAD MODEL ---------------- #
 
 model = pickle.load(open("model.pkl", "rb"))
 vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
-# ---------------- CUSTOM CSS ----------------
+# ---------------- CUSTOM CSS ---------------- #
 
 st.markdown("""
 <style>
 
-/* Main Background */
+/* ---------------- APP BACKGROUND ---------------- */
 
 .stApp {
-    background: linear-gradient(135deg, #020617, #071226, #0f172a);
+
+    background: linear-gradient(
+    -45deg,
+    #020617,
+    #071226,
+    #0f172a,
+    #1e3a8a
+    );
+
+    background-size: 400% 400%;
+
+    animation: gradient 15s ease infinite;
+
     color: white;
 }
 
-/* Sidebar */
+/* ---------------- ANIMATION ---------------- */
 
-section[data-testid="stSidebar"] {
-    background: rgba(5, 10, 25, 0.95);
-    border-right: 1px solid rgba(255,255,255,0.08);
+@keyframes gradient {
+
+0% {
+background-position: 0% 50%;
 }
 
-/* Sidebar Text */
-
-section[data-testid="stSidebar"] * {
-    color: white;
+50% {
+background-position: 100% 50%;
 }
 
-/* Hide Streamlit Branding */
+100% {
+background-position: 0% 50%;
+}
+
+}
+
+/* ---------------- HIDE STREAMLIT ---------------- */
 
 #MainMenu {
     visibility: hidden;
@@ -54,245 +137,301 @@ header {
     visibility: hidden;
 }
 
-/* Title */
+/* ---------------- TITLE ---------------- */
 
 .main-title {
+
     font-size: 65px;
+
     font-weight: 900;
+
     background: linear-gradient(to right, #38bdf8, #22d3ee);
+
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
     margin-bottom: 0px;
 }
 
-/* Subtitle */
+/* ---------------- SUBTITLE ---------------- */
 
 .subtitle {
+
     color: #94a3b8;
+
     font-size: 22px;
+
     margin-top: -10px;
 }
 
-/* Glass Card */
+/* ---------------- GLASS CARD ---------------- */
 
 .glass-card {
+
     background: rgba(255,255,255,0.04);
+
     border: 1px solid rgba(255,255,255,0.08);
+
     border-radius: 30px;
+
     padding: 30px;
+
     backdrop-filter: blur(20px);
+
     box-shadow: 0 0 40px rgba(0,0,0,0.4);
 }
 
-/* Text Area */
+/* ---------------- TEXT AREA ---------------- */
 
 .stTextArea textarea {
+
     background: rgba(2,6,23,0.9);
+
     color: white;
+
     border: 2px solid #0ea5e9;
+
     border-radius: 20px;
+
     padding: 20px;
+
     font-size: 18px;
+
     min-height: 250px;
 }
 
-/* Button */
+/* ---------------- BUTTON ---------------- */
 
 .stButton button {
+
     width: 100%;
+
     height: 65px;
+
     border: none;
+
     border-radius: 18px;
+
     background: linear-gradient(to right, #2563eb, #06b6d4);
+
     color: white;
+
     font-size: 24px;
+
     font-weight: bold;
+
     transition: 0.4s;
+
     box-shadow: 0 0 25px rgba(37,99,235,0.5);
 }
 
 .stButton button:hover {
+
     transform: scale(1.02);
+
     box-shadow: 0 0 35px rgba(6,182,212,0.8);
 }
 
-/* Result Card */
+/* ---------------- RESULT CARD ---------------- */
 
 .result-card {
+
     padding: 18px;
+
     border-radius: 18px;
+
     text-align: center;
+
     margin-top: 20px;
 
     font-size: 22px;
+
     font-weight: bold;
 
     width: 75%;
-    margin-left: auto;
-    margin-right: auto;
 
-    animation: popup 0.4s ease;
+    margin-left: auto;
+
+    margin-right: auto;
 }
 
-/* Fake */
+/* ---------------- FAKE ---------------- */
 
 .fake {
+
     background: rgba(255,0,0,0.1);
+
     border: 2px solid rgba(255,0,0,0.5);
+
     color: #ff4d4d;
+
     box-shadow: 0 0 20px rgba(255,0,0,0.3);
 }
 
-/* Real */
+/* ---------------- REAL ---------------- */
 
 .real {
+
     background: rgba(0,255,127,0.1);
+
     border: 2px solid rgba(0,255,127,0.5);
+
     color: #22c55e;
+
     box-shadow: 0 0 20px rgba(34,197,94,0.3);
 }
 
-/* Feature Cards */
+/* ---------------- FEATURE CARD ---------------- */
 
 .feature-card {
+
     background: rgba(255,255,255,0.04);
+
     border-radius: 20px;
+
     padding: 25px;
+
     text-align: center;
+
     border: 1px solid rgba(255,255,255,0.08);
+
     transition: 0.3s;
 
     min-height: 320px;
 
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
 
-    overflow: hidden;
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    align-items: center;
 }
 
 .feature-card:hover {
+
     transform: translateY(-8px);
+
     box-shadow: 0 0 30px rgba(56,189,248,0.3);
 }
 
-/* Feature Card Heading */
+/* ---------------- FEATURE TEXT ---------------- */
 
 .feature-card h2 {
+
     font-size: 22px;
+
     margin-top: 15px;
+
     margin-bottom: 15px;
+
     line-height: 1.3;
 }
 
-/* Feature Card Paragraph */
-
 .feature-card p {
+
     font-size: 16px;
+
     color: #cbd5e1;
+
     line-height: 1.6;
 }
 
-/* Metrics */
+/* ---------------- METRIC CARD ---------------- */
 
 .metric-card {
+
     background: rgba(255,255,255,0.04);
+
     border-radius: 20px;
+
     padding: 20px;
+
     text-align: center;
+
     margin-top: 10px;
 }
 
-/* Footer */
+/* ---------------- TABS ---------------- */
+
+.stTabs [data-baseweb="tab-list"] {
+
+    gap: 15px;
+
+    justify-content: center;
+}
+
+.stTabs [data-baseweb="tab"] {
+
+    background: rgba(255,255,255,0.05);
+
+    border-radius: 12px;
+
+    padding: 12px 22px;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+/* ---------------- FOOTER ---------------- */
 
 .footer {
+
     text-align: center;
+
     color: gray;
+
     margin-top: 50px;
 }
 
-/* Animation */
+/* ---------------- MOBILE ---------------- */
 
-@keyframes popup {
+@media screen and (max-width: 768px) {
 
-    0% {
-        transform: scale(0.8);
-        opacity: 0;
+    .main-title {
+        font-size: 42px;
     }
 
-    100% {
-        transform: scale(1);
-        opacity: 1;
+    .subtitle {
+        font-size: 17px;
+    }
+
+    .glass-card {
+        padding: 20px;
+    }
+
+    .feature-card {
+        min-height: auto;
+    }
+
+    .result-card {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .stButton button {
+        height: 55px;
+        font-size: 18px;
+    }
+
+    .block-container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
     }
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- SIDEBAR ----------------
-
-st.sidebar.image("logo.png", width=220)
-
-st.sidebar.markdown("# 🛡️ JobShield AI")
-
-st.sidebar.markdown("""
-### Navigation
-
-- 🏠 Home
-- 📊 Analyze Job
-- 📁 Saved Results
-- ⚙️ Settings
-
----
-
-### Features
-
-✅ AI Detection  
-✅ Real-time Analysis  
-✅ High Accuracy  
-✅ NLP Technology  
-
----
-
-### Tech Stack
-
-- Python
-- Streamlit
-- Machine Learning
-- NLP
-- Scikit-learn
-""")
-
-st.sidebar.success("🟢 System Online")
-
-# ---------------- MADE BY ----------------
-
-st.sidebar.markdown("---")
-
-st.sidebar.markdown(
-    """
-    <div style="
-        text-align:center;
-        padding:12px;
-        border-radius:15px;
-        background:rgba(255,255,255,0.05);
-        color:white;
-        font-size:18px;
-        font-weight:bold;
-    ">
-        Made by Chandan 🚀
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-# ---------------- HEADER ----------------
+# ---------------- HEADER ---------------- #
 
 col1, col2 = st.columns([1,5])
 
 with col1:
-    st.image("logo.png", width=180)
+    st.image("logo.png", width=140)
 
 with col2:
 
@@ -308,148 +447,193 @@ with col2:
 
 st.write("")
 
-# ---------------- MAIN CARD ----------------
+# ---------------- TOP TABS ---------------- #
 
-st.markdown('<div class="glass-card">', unsafe_allow_html=True)
+tab1, tab2, tab3, tab4 = st.tabs([
+    "🏠 Home",
+    "📊 Analyze",
+    "📁 Results",
+    "⚙️ Settings"
+])
 
-st.markdown("## 📄 Enter Job Description")
+# ================= HOME TAB ================= #
 
-job_text = st.text_area(
-    "",
-    placeholder="Paste complete job description here..."
-)
+with tab1:
 
-# ---------------- BUTTON ----------------
+    st.markdown("## 🚀 Platform Features")
 
-if st.button("🔍 Analyze Job Posting"):
+    col1, col2, col3, col4 = st.columns(4)
 
-    if job_text.strip() == "":
+    with col1:
+        st.markdown("""
+        <div class="feature-card">
+        <h1>🛡️</h1>
+        <h2>Smart Detection</h2>
+        <p>
+        Advanced AI model detects fake job postings with high accuracy.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.warning("Please enter job description")
+    with col2:
+        st.markdown("""
+        <div class="feature-card">
+        <h1>⚡</h1>
+        <h2>Instant Results</h2>
+        <p>
+        Get prediction and confidence scores instantly.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    else:
+    with col3:
+        st.markdown("""
+        <div class="feature-card">
+        <h1>🎯</h1>
+        <h2>High Accuracy</h2>
+        <p>
+        Trained on thousands of real & fake job postings.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        # Transform
-        data = vectorizer.transform([job_text])
+    with col4:
+        st.markdown("""
+        <div class="feature-card">
+        <h1>🧠</h1>
+        <h2>NLP Technology</h2>
+        <p>
+        Uses Natural Language Processing for analysis.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        # Prediction
-        prediction = model.predict(data)
+# ================= ANALYZE TAB ================= #
 
-        # Probability
-        probability = model.predict_proba(data)
+with tab2:
 
-        fake_score = probability[0][1] * 100
-        real_score = probability[0][0] * 100
+    st.markdown('<div class="glass-card">', unsafe_allow_html=True)
 
-        # ---------------- SCORES ----------------
+    st.markdown("## 📄 Enter Job Description")
 
-        st.markdown("## 📊 AI Confidence Scores")
+    job_text = st.text_area(
+        "",
+        placeholder="Paste complete job description here..."
+    )
 
-        col1, col2 = st.columns(2)
+    if st.button("🔍 Analyze Job Posting"):
 
-        with col1:
+        if job_text.strip() == "":
 
-            st.markdown(f"""
-            <div class="metric-card">
-                <h2>🚨 Fake Score</h2>
-                <h1>{fake_score:.2f}%</h1>
-            </div>
-            """, unsafe_allow_html=True)
-
-            st.progress(int(fake_score))
-
-        with col2:
-
-            st.markdown(f"""
-            <div class="metric-card">
-                <h2>✅ Real Score</h2>
-                <h1>{real_score:.2f}%</h1>
-            </div>
-            """, unsafe_allow_html=True)
-
-            st.progress(int(real_score))
-
-        # ---------------- RESULT ----------------
-
-        if int(prediction[0]) == 1:
-
-            st.markdown(f"""
-            <div class="result-card fake">
-            🚨 Fake Job Posting Detected
-            </div>
-            """, unsafe_allow_html=True)
+            st.warning("Please enter job description")
 
         else:
 
-            st.markdown(f"""
-            <div class="result-card real">
-            ✅ Real Job Posting
-            </div>
-            """, unsafe_allow_html=True)
+            data = vectorizer.transform([job_text])
 
-st.markdown('</div>', unsafe_allow_html=True)
+            prediction = model.predict(data)
 
-# ---------------- FEATURE SECTION ----------------
+            probability = model.predict_proba(data)
 
-st.write("")
-st.write("")
+            fake_score = probability[0][1] * 100
+            real_score = probability[0][0] * 100
 
-st.markdown("## 🚀 Platform Features")
+            st.markdown("## 📊 AI Confidence Scores")
 
-col1, col2, col3, col4 = st.columns(4)
+            col1, col2 = st.columns(2)
 
-with col1:
+            with col1:
+
+                st.markdown(f"""
+                <div class="metric-card">
+                    <h2>🚨 Fake Score</h2>
+                    <h1>{fake_score:.2f}%</h1>
+                </div>
+                """, unsafe_allow_html=True)
+
+                st.progress(int(fake_score))
+
+            with col2:
+
+                st.markdown(f"""
+                <div class="metric-card">
+                    <h2>✅ Real Score</h2>
+                    <h1>{real_score:.2f}%</h1>
+                </div>
+                """, unsafe_allow_html=True)
+
+                st.progress(int(real_score))
+
+            if int(prediction[0]) == 1:
+
+                st.markdown("""
+                <div class="result-card fake">
+                🚨 Fake Job Posting Detected
+                </div>
+                """, unsafe_allow_html=True)
+
+            else:
+
+                st.markdown("""
+                <div class="result-card real">
+                ✅ Real Job Posting
+                </div>
+                """, unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ================= RESULTS TAB ================= #
+
+with tab3:
+
     st.markdown("""
-    <div class="feature-card">
-    <h1>🛡️</h1>
-    <h2>Smart Detection</h2>
-    <p>
-    Advanced AI model detects fake job postings
-    with high accuracy.
+    <div class="glass-card">
+
+    <h2>📁 Saved Results</h2>
+
+    <p style="color:#cbd5e1;font-size:18px;">
+
+    Future prediction history and saved reports will appear here.
+
     </p>
+
     </div>
     """, unsafe_allow_html=True)
 
-with col2:
+# ================= SETTINGS TAB ================= #
+
+with tab4:
+
     st.markdown("""
-    <div class="feature-card">
-    <h1>⚡</h1>
-    <h2>Instant Results</h2>
-    <p>
-    Get prediction and confidence scores
-    instantly.
+    <div class="glass-card">
+
+    <h2>⚙️ Settings</h2>
+
+    <p style="color:#cbd5e1;font-size:18px;">
+
+    ✅ System Online  
+    <br><br>
+
+    ✅ AI Detection Enabled  
+    <br><br>
+
+    ✅ NLP Engine Active
+
+    <br><br><br>
+
+    Made by Chandan 🚀
+
     </p>
+
     </div>
     """, unsafe_allow_html=True)
 
-with col3:
-    st.markdown("""
-    <div class="feature-card">
-    <h1>🎯</h1>
-    <h2>High Accuracy</h2>
-    <p>
-    Trained on thousands of real & fake
-    job postings.
-    </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col4:
-    st.markdown("""
-    <div class="feature-card">
-    <h1>🧠</h1>
-    <h2>NLP Technology</h2>
-    <p>
-    Uses Natural Language Processing
-    for analysis.
-    </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# ---------------- FOOTER ----------------
+# ---------------- FOOTER ---------------- #
 
 st.markdown("""
 <div class="footer">
+
 Made by Chandan
+
 </div>
 """, unsafe_allow_html=True)
