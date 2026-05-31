@@ -420,29 +420,53 @@ st.markdown("""
 
 /* ── TABS ── */
 .stTabs [data-baseweb="tab-list"] {
-    gap: 8px;
-    background: rgba(14,26,50,0.5);
-    padding: 6px;
-    border-radius: 16px;
-    border: 1px solid rgba(56,189,248,0.1);
+    gap: 4px !important;
+    background: rgba(14,26,50,0.6) !important;
+    padding: 5px !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(56,189,248,0.12) !important;
+    flex-wrap: wrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+}
+
+.stTabs [data-baseweb="tab-list"]::-webkit-scrollbar {
+    display: none !important;
 }
 
 .stTabs [data-baseweb="tab"] {
-    background: transparent;
-    border-radius: 12px;
-    padding: 10px 22px;
-    color: #475569;
-    font-family: 'Orbitron', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    transition: all 0.2s;
+    background: transparent !important;
+    border-radius: 10px !important;
+    padding: 8px 14px !important;
+    color: #475569 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.3px !important;
+    transition: all 0.2s !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    min-width: 0 !important;
 }
 
 .stTabs [aria-selected="true"] {
     background: rgba(56,189,248,0.12) !important;
     color: #38bdf8 !important;
     border: 1px solid rgba(56,189,248,0.25) !important;
+}
+
+/* Mobile tabs */
+@media (max-width: 480px) {
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 3px !important;
+        padding: 4px !important;
+        border-radius: 12px !important;
+    }
+    .stTabs [data-baseweb="tab"] {
+        padding: 7px 10px !important;
+        font-size: 11px !important;
+        letter-spacing: 0 !important;
+    }
 }
 
 /* ── PROGRESS BAR ── */
@@ -458,9 +482,23 @@ st.markdown("""
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
-    .main-title { font-size: 36px; }
-    .glass-card { padding: 20px 16px; border-radius: 18px; }
-    .block-container { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+    .main-title { font-size: 32px; letter-spacing: -0.5px; }
+    .subtitle { font-size: 14px; }
+    .glass-card { padding: 16px 14px; border-radius: 16px; }
+    .section-header { font-size: 12px; }
+    .feature-card { padding: 18px 14px; min-height: 160px; }
+    .feature-icon { font-size: 28px; margin-bottom: 8px; }
+    .feature-card h3 { font-size: 11px; }
+    .feature-card p { font-size: 12px; }
+    .metric-value { font-size: 26px; }
+    .result-fake, .result-real { font-size: 15px; padding: 16px 14px; letter-spacing: 0.5px; }
+    .block-container { padding-left: 0.5rem !important; padding-right: 0.5rem !important; padding-top: 1rem !important; }
+    .tip-item { font-size: 13px; }
+}
+
+@media (max-width: 400px) {
+    .main-title { font-size: 26px; }
+    .result-fake, .result-real { font-size: 13px; }
 }
 
 </style>
@@ -489,10 +527,10 @@ st.markdown("<br>", unsafe_allow_html=True)
 # ─────────────────────────────────────────────
 
 tab_home, tab_analyze, tab_tips, tab_settings = st.tabs([
-    "🏠  Home",
-    "🔍  Analyze",
-    "💡  Tips",
-    "⚙️  Settings"
+    "🏠 Home",
+    "🔍 Analyze",
+    "💡 Tips",
+    "⚙️ Settings"
 ])
 
 # ═══════════════════════════════════════════════
