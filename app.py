@@ -161,13 +161,61 @@ components.html(aurora_html, height=0)
 #  LOAD MODEL
 # ─────────────────────────────────────────────
 
-@st.cache_resource
+@st.cache_resource(show_spinner="Loading AI model...")
 def load_model():
-    model = pickle.load(open("model.pkl", "rb"))
-    vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
-    return model, vectorizer
+    from pathlib import Path
+    base_dir = Path(__file__).parent
+
+    model_path = base_dir / "model.pkl"
+    vectorizer_path = base_dir / "vectorizer.pkl"
+
+    if not model_path.exists():
+        st.error("model.pkl is missing. Please upload model.pkl to your GitHub repository/project folder.")
+        st.stop()
+
+    if not vectorizer_path.exists():
+        st.error("vectorizer.pkl is missing. Please upload vectorizer.pkl to your GitHub repository/project folder.")
+        st.stop()
+
+    try:
+        with open(model_path, "rb") as f:
+            model = pickle.load(f)
+
+        with open(vectorizer_path, "rb") as f:
+            vectorizer = pickle.load(f)
+
+        return model, vectorizer
+
+    except Exception as e:
+        st.error(f"Model loading error: {e}")
+        st.stop()
 
 model, vectorizer = load_model()
+
+# ─────────────────────────────────────────────
+#  BETTER FAKE DETECTION HELPERS
+# ─────────────────────────────────────────────
+
+def calculate_rule_risk(text):
+    text = text.lower()
+
+    high_risk_keywords = [
+        "registration fee", "security deposit", "processing fee", "verification fee",
+        "pay", "upi", "telegram", "whatsapp", "no interview", "guaranteed income",
+        "instant joining", "limited seats", "bank details", "aadhaar", "investment",
+        "refundable deposit", "no experience required", "earn daily", "earn weekly"
+    ]
+
+    score = 0
+    matched = []
+
+    for word in high_risk_keywords:
+        if word in text:
+            score += 1
+            matched.append(word)
+
+    return score, matched
+
 
 # ─────────────────────────────────────────────
 #  CUSTOM CSS
@@ -751,11 +799,36 @@ with tab_analyze:
 
         else:
             with st.spinner("Scanning for fraud signals..."):
-                data       = vectorizer.transform([job_text])
-                prediction = model.predict(data)[0]
-                proba      = model.predict_proba(data)[0]
-                fake_pct   = proba[1] * 100
-                real_pct   = proba[0] * 100
+                data = vectorizer.transform([job_text])
+                raw_prediction = model.predict(data)[0]
+                proba = model.predict_proba(data)[0]
+
+                # Raw model scores
+                raw_fake_pct = proba[1] * 100
+                raw_real_pct = proba[0] * 100
+
+                rule_score, matched_keywords = calculate_rule_risk(job_text)
+
+                # Adjusted hybrid score: model probability + rule-based risk signals.
+                # IMPORTANT: final prediction is based on the adjusted score,
+                # so Fake/Real result and displayed scores stay consistent.
+                fake_pct = raw_fake_pct + (rule_score * 18)
+
+                # Strong suspicious signals should clearly push the score into fake range.
+                if rule_score >= 2:
+                    fake_pct = max(fake_pct, 65)
+                elif rule_score == 1:
+                    fake_pct = max(fake_pct, 52)
+
+                # If the trained model itself predicts fake, keep fake confidence above 50.
+                if int(raw_prediction) == 1:
+                    fake_pct = max(fake_pct, 58)
+
+                fake_pct = min(100, max(0, fake_pct))
+                real_pct = 100 - fake_pct
+
+                # Final decision: Fake only when fake score is higher than real score.
+                prediction = 1 if fake_pct >= 50 else 0
 
             # Scores
             st.markdown('<div class="glass-card">', unsafe_allow_html=True)
@@ -803,8 +876,8 @@ with tab_analyze:
             st.markdown('<div class="glass-card">', unsafe_allow_html=True)
             st.markdown('<div class="section-header">📈 Risk Breakdown</div>', unsafe_allow_html=True)
 
-            risk_level = "HIGH RISK" if fake_pct >= 70 else "MEDIUM RISK" if fake_pct >= 40 else "LOW RISK"
-            risk_color = "#ef4444" if fake_pct >= 70 else "#f59e0b" if fake_pct >= 40 else "#10b981"
+            risk_level = "HIGH RISK" if fake_pct >= 70 else "MEDIUM RISK" if fake_pct >= 50 else "LOW RISK"
+            risk_color = "#ef4444" if fake_pct >= 70 else "#f59e0b" if fake_pct >= 50 else "#10b981"
 
             st.markdown(f"""
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -816,10 +889,21 @@ with tab_analyze:
 
             st.markdown(f"""
             <div style="margin-top:16px;font-family:'DM Sans', sans-serif;font-size:13px;color:#52728a;line-height:1.7;font-weight:300;">
-                Model confidence: <span style="color:#e2e8f0;font-weight:600;">{max(fake_pct, real_pct):.1f}%</span> &nbsp;·&nbsp;
+                Final confidence: <span style="color:#e2e8f0;font-weight:600;">{max(fake_pct, real_pct):.1f}%</span> &nbsp;·&nbsp;
+                Raw model fake score: <span style="color:#e2e8f0;font-weight:600;">{raw_fake_pct:.1f}%</span> &nbsp;·&nbsp;
                 Prediction: <span style="color:{risk_color};font-weight:600;">{'Fraudulent' if prediction == 1 else 'Legitimate'}</span>
             </div>
             """, unsafe_allow_html=True)
+
+            if matched_keywords:
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown("<div class='section-header'>⚠️ Suspicious Signals Found</div>", unsafe_allow_html=True)
+                clean_words = ", ".join(sorted(set(matched_keywords))[:8])
+                st.markdown(f"""
+                <div class="warn-banner">
+                    Detected risky terms: <b>{clean_words}</b>
+                </div>
+                """, unsafe_allow_html=True)
 
             st.markdown('</div>', unsafe_allow_html=True)
 
