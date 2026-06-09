@@ -14,43 +14,148 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-#  PARTICLES BACKGROUND
+#  AURORA BACKGROUND
 # ─────────────────────────────────────────────
 
-particles_html = """
-<div id="particles-js"></div>
+aurora_html = """
 <style>
-#particles-js {
+  .aurora-wrap {
     position: fixed;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: -1;
-    top: 0;
-    left: 0;
-}
-</style>
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-particlesJS("particles-js", {
-  "particles": {
-    "number": { "value": 55 },
-    "color": { "value": "#38bdf8" },
-    "shape": { "type": "circle" },
-    "opacity": { "value": 0.35 },
-    "size": { "value": 2.5 },
-    "line_linked": {
-      "enable": true,
-      "distance": 140,
-      "color": "#38bdf8",
-      "opacity": 0.25,
-      "width": 1
-    },
-    "move": { "enable": true, "speed": 1.5 }
+    overflow: hidden;
+    background: #020917;
   }
-});
-</script>
+  .stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.55) 0%, transparent 100%),
+      radial-gradient(1px 1px at 28% 72%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1px 1px at 44% 35%, rgba(255,255,255,0.6)  0%, transparent 100%),
+      radial-gradient(1px 1px at 61% 88%, rgba(255,255,255,0.4)  0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 22%, rgba(255,255,255,0.55) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 55%, rgba(255,255,255,0.5)  0%, transparent 100%),
+      radial-gradient(1px 1px at  5% 90%, rgba(255,255,255,0.4)  0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 10%, rgba(255,255,255,0.5)  0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 42%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1px 1px at 83% 78%, rgba(255,255,255,0.5)  0%, transparent 100%),
+      radial-gradient(1px 1px at 18% 48%, rgba(255,255,255,0.4)  0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 25%, rgba(255,255,255,0.6)  0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 22% 62%, rgba(255,255,255,0.5)  0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 76% 8%,  rgba(255,255,255,0.55) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 95% 33%, rgba(255,255,255,0.5)  0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at  8% 5%,  rgba(255,255,255,0.6)  0%, transparent 100%),
+      radial-gradient(2px 2px at 66% 68%, rgba(200,230,255,0.5)  0%, transparent 100%),
+      radial-gradient(2px 2px at 33% 93%, rgba(200,230,255,0.4)  0%, transparent 100%),
+      radial-gradient(2px 2px at 88% 14%, rgba(200,230,255,0.55) 0%, transparent 100%);
+    animation: twinkle 6s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    0%   { opacity: 0.7; }
+    50%  { opacity: 1;   }
+    100% { opacity: 0.6; }
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    mix-blend-mode: screen;
+  }
+  .orb-1 {
+    width: 65vw; height: 55vw;
+    top: -20%;  left: -15%;
+    background: radial-gradient(ellipse, rgba(14,80,180,0.45) 0%, transparent 70%);
+    animation: drift1 20s ease-in-out infinite alternate;
+  }
+  .orb-2 {
+    width: 55vw; height: 50vw;
+    top: -10%; right: -10%;
+    background: radial-gradient(ellipse, rgba(0,170,200,0.35) 0%, transparent 70%);
+    animation: drift2 25s ease-in-out infinite alternate;
+  }
+  .orb-3 {
+    width: 50vw; height: 45vw;
+    bottom: -15%; left: 20%;
+    background: radial-gradient(ellipse, rgba(40,0,160,0.4) 0%, transparent 70%);
+    animation: drift3 22s ease-in-out infinite alternate;
+  }
+  .orb-4 {
+    width: 40vw; height: 40vw;
+    top: 30%;  right: 5%;
+    background: radial-gradient(ellipse, rgba(0,200,160,0.2) 0%, transparent 70%);
+    animation: drift4 18s ease-in-out infinite alternate;
+  }
+  .orb-5 {
+    width: 35vw; height: 35vw;
+    top: 50%;  left: 35%;
+    background: radial-gradient(ellipse, rgba(80,20,200,0.25) 0%, transparent 70%);
+    animation: drift5 28s ease-in-out infinite alternate;
+  }
+  .aurora-band {
+    position: absolute;
+    left: -10%;
+    width: 120%;
+    height: 180px;
+    top: 15%;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(0,160,220,0.07) 30%,
+      rgba(20,80,200,0.1) 50%,
+      rgba(0,200,180,0.07) 70%,
+      transparent 100%
+    );
+    filter: blur(20px);
+    animation: bandMove 16s ease-in-out infinite alternate;
+  }
+  @keyframes bandMove {
+    0%   { top: 10%; opacity: 0.5; transform: skewY(-1deg);   }
+    50%  { top: 20%; opacity: 1;   transform: skewY(1deg);    }
+    100% { top: 12%; opacity: 0.6; transform: skewY(-0.5deg); }
+  }
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  @keyframes drift1 {
+    0%   { transform: translate(0,  0)   scale(1);    }
+    100% { transform: translate(6%, 8%)  scale(1.08); }
+  }
+  @keyframes drift2 {
+    0%   { transform: translate(0,   0)   scale(1);   }
+    100% { transform: translate(-8%, 5%)  scale(1.1); }
+  }
+  @keyframes drift3 {
+    0%   { transform: translate(0,   0)   scale(1);    }
+    100% { transform: translate(5%, -6%)  scale(1.06); }
+  }
+  @keyframes drift4 {
+    0%   { transform: translate(0,   0)   scale(1);    }
+    100% { transform: translate(-5%, 8%)  scale(1.12); }
+  }
+  @keyframes drift5 {
+    0%   { transform: translate(0,   0)   scale(1);    }
+    100% { transform: translate(4%, -4%)  scale(0.92); }
+  }
+</style>
+<div class="aurora-wrap">
+  <div class="stars"></div>
+  <div class="aurora-band"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+  <div class="orb orb-5"></div>
+  <div class="grid-overlay"></div>
+</div>
 """
-components.html(particles_html, height=0)
+components.html(aurora_html, height=0)
 
 # ─────────────────────────────────────────────
 #  LOAD MODEL
@@ -71,18 +176,22 @@ model, vectorizer = load_model()
 st.markdown("""
 <style>
 
-/* ── APP BACKGROUND ── */
+/* ── APP BACKGROUND — transparent so aurora shows ── */
 .stApp {
-    background: linear-gradient(-45deg, #020617, #060f22, #0c1a3a, #071828);
-    background-size: 400% 400%;
-    animation: gradient 18s ease infinite;
+    background: transparent !important;
     color: white;
 }
 
-@keyframes gradient {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+.stApp > div {
+    background: transparent !important;
+}
+
+[data-testid="stAppViewContainer"] {
+    background: transparent !important;
+}
+
+[data-testid="stHeader"] {
+    background: transparent !important;
 }
 
 /* ── HIDE STREAMLIT CHROME ── */
@@ -90,28 +199,32 @@ st.markdown("""
 .block-container { padding-top: 2rem !important; }
 
 /* ── TYPOGRAPHY ── */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@300;400;500&display=swap');
 
+/* Main title — elegant serif with light gradient */
 .main-title {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(38px, 6vw, 68px);
-    font-weight: 900;
-    background: linear-gradient(90deg, #38bdf8, #22d3ee, #67e8f9);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(30px, 5vw, 54px);
+    font-weight: 800;
+    font-style: normal;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 4px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 40%, #7dd3fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -1px;
-    line-height: 1.1;
-    margin-bottom: 4px;
 }
 
+/* Subtitle — airy, spaced uppercase */
 .subtitle {
-    color: #64748b;
-    font-size: 18px;
-    margin-top: 6px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
     font-weight: 400;
+    color: #64748b;
+    margin-top: 8px;
     letter-spacing: 0.2px;
+    line-height: 1.5;
 }
 
 /* ── GLASS CARD ── */
@@ -128,23 +241,24 @@ st.markdown("""
 
 /* ── SECTION HEADER ── */
 .section-header {
-    font-family: 'Orbitron', monospace;
-    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
     font-weight: 700;
     color: #38bdf8;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
+    opacity: 0.8;
 }
 
 .section-header::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, rgba(56,189,248,0.3), transparent);
+    background: linear-gradient(90deg, rgba(126,184,212,0.25), transparent);
 }
 
 /* ── TEXTAREA ── */
@@ -155,7 +269,8 @@ st.markdown("""
     border-radius: 16px !important;
     padding: 18px !important;
     font-size: 15px !important;
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 300 !important;
     min-height: 220px !important;
     transition: border-color 0.3s !important;
     resize: vertical !important;
@@ -169,17 +284,18 @@ st.markdown("""
 /* ── ANALYZE BUTTON ── */
 .stButton > button {
     width: 100% !important;
-    height: 60px !important;
-    border-radius: 16px !important;
+    height: 56px !important;
+    border-radius: 12px !important;
     background: linear-gradient(90deg, #0369a1, #0891b2) !important;
     color: #f0f9ff !important;
-    font-family: 'Orbitron', monospace !important;
-    font-size: 15px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
-    letter-spacing: 1.5px !important;
-    border: 1px solid rgba(56,189,248,0.3) !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 24px rgba(8,145,178,0.25) !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    border: 1px solid rgba(56,189,248,0.2) !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 2px 16px rgba(8,145,178,0.2) !important;
 }
 
 .stButton > button:hover {
@@ -199,7 +315,7 @@ st.markdown("""
     border-radius: 20px;
     padding: 28px 22px;
     text-align: center;
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     transition: all 0.3s ease;
     min-height: 220px;
     display: flex;
@@ -231,52 +347,53 @@ st.markdown("""
 .feature-icon { font-size: 38px; margin-bottom: 14px; }
 
 .feature-card h3 {
-    font-family: 'Orbitron', monospace;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 700;
     color: #e2e8f0;
-    letter-spacing: 1px;
+    letter-spacing: 0.2px;
     margin-bottom: 10px;
-    text-transform: uppercase;
 }
 
 .feature-card p {
+    font-family: 'DM Sans', sans-serif;
     font-size: 13px;
-    color: #64748b;
-    line-height: 1.6;
+    font-weight: 300;
+    color: #4e6e84;
+    line-height: 1.7;
     margin: 0;
 }
 
 /* ── RESULT CARD ── */
 .result-fake {
-    padding: 22px 28px;
-    border-radius: 18px;
+    padding: 20px 28px;
+    border-radius: 14px;
     text-align: center;
     margin-top: 24px;
-    font-family: 'Orbitron', monospace;
-    font-size: 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 17px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.3px;
     background: rgba(239, 68, 68, 0.08);
-    border: 1.5px solid rgba(239,68,68,0.35);
-    color: #f87171;
-    box-shadow: 0 0 30px rgba(239,68,68,0.12), inset 0 0 30px rgba(239,68,68,0.03);
+    border: 1px solid rgba(239,68,68,0.3);
+    color: #fca5a5;
+    box-shadow: 0 0 24px rgba(239,68,68,0.1);
     animation: resultPop 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 
 .result-real {
-    padding: 22px 28px;
-    border-radius: 18px;
+    padding: 20px 28px;
+    border-radius: 14px;
     text-align: center;
     margin-top: 24px;
-    font-family: 'Orbitron', monospace;
-    font-size: 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 17px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.3px;
     background: rgba(16, 185, 129, 0.08);
-    border: 1.5px solid rgba(16,185,129,0.35);
-    color: #34d399;
-    box-shadow: 0 0 30px rgba(16,185,129,0.12), inset 0 0 30px rgba(16,185,129,0.03);
+    border: 1px solid rgba(16,185,129,0.3);
+    color: #6ee7b7;
+    box-shadow: 0 0 24px rgba(16,185,129,0.1);
     animation: resultPop 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 
@@ -315,22 +432,24 @@ st.markdown("""
     border-radius: 16px;
     padding: 22px 20px;
     text-align: center;
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .metric-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 3.5px;
     text-transform: uppercase;
-    color: #475569;
-    margin-bottom: 8px;
+    color: #4a6a82;
+    margin-bottom: 10px;
 }
 
 .metric-value {
-    font-family: 'Orbitron', monospace;
-    font-size: 32px;
-    font-weight: 900;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
     line-height: 1;
 }
 
@@ -345,7 +464,7 @@ st.markdown("""
     padding: 14px 18px;
     font-size: 13px;
     color: #fbbf24;
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -358,10 +477,11 @@ st.markdown("""
     gap: 12px;
     padding: 12px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
-    color: #94a3b8;
-    line-height: 1.5;
+    color: #8aa4be;
+    line-height: 1.7;
+    font-weight: 300;
 }
 
 .tip-item:last-child { border-bottom: none; }
@@ -379,42 +499,48 @@ st.markdown("""
     justify-content: space-between;
     padding: 16px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .settings-label {
+    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
-    color: #e2e8f0;
+    color: #c8daea;
     font-weight: 500;
+    letter-spacing: 0.2px;
 }
 
 .settings-sub {
-    font-size: 12px;
-    color: #475569;
-    margin-top: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: #3d5a6e;
+    margin-top: 3px;
+    letter-spacing: 0.5px;
 }
 
 .badge-on {
-    background: rgba(16,185,129,0.12);
-    border: 1px solid rgba(16,185,129,0.3);
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.25);
     color: #34d399;
     padding: 4px 12px;
     border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Orbitron', monospace;
-    letter-spacing: 0.5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
 }
 
 /* ── FOOTER ── */
 .footer {
     text-align: center;
-    color: #1e293b;
-    font-size: 12px;
+    color: #1e3a4a;
+    font-size: 11px;
     margin-top: 60px;
     padding-bottom: 40px;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 1px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
@@ -439,10 +565,10 @@ st.markdown("""
     border-radius: 10px !important;
     padding: 8px 14px !important;
     color: #475569 !important;
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'DM Sans', sans-serif !important;
     font-size: 13px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.3px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
     transition: all 0.2s !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
@@ -579,7 +705,7 @@ with tab_home:
         with col:
             st.markdown(f"""
             <div class="feature-card">
-                <div style="font-family:'Orbitron',monospace;font-size:36px;font-weight:900;color:{color};margin-bottom:10px;">{num}</div>
+                <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:38px;font-weight:800;color:{color};margin-bottom:10px;">{num}</div>
                 <h3>{title}</h3>
                 <p>{desc}</p>
             </div>
@@ -682,14 +808,14 @@ with tab_analyze:
 
             st.markdown(f"""
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <span style="font-size:13px;color:#475569;font-family:'Inter',sans-serif;">Overall Fraud Risk</span>
-                <span style="font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:{risk_color};">{risk_level}</span>
+                <span style="font-size:13px;color:#475569;font-family:'DM Sans', sans-serif;font-weight:300;">Overall Fraud Risk</span>
+                <span style="font-family:'DM Sans', sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:{risk_color};">{risk_level}</span>
             </div>
             """, unsafe_allow_html=True)
             st.progress(int(fake_pct))
 
             st.markdown(f"""
-            <div style="margin-top:16px;font-family:'Inter',sans-serif;font-size:13px;color:#475569;line-height:1.7;">
+            <div style="margin-top:16px;font-family:'DM Sans', sans-serif;font-size:13px;color:#52728a;line-height:1.7;font-weight:300;">
                 Model confidence: <span style="color:#e2e8f0;font-weight:600;">{max(fake_pct, real_pct):.1f}%</span> &nbsp;·&nbsp;
                 Prediction: <span style="color:{risk_color};font-weight:600;">{'Fraudulent' if prediction == 1 else 'Legitimate'}</span>
             </div>
@@ -771,13 +897,13 @@ with tab_settings:
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
     st.markdown('<div class="section-header">ℹ️ About</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div style="font-family:'Inter',sans-serif;font-size:14px;color:#64748b;line-height:1.8;">
+    <div style="font-family:'DM Sans', sans-serif;font-size:14px;color:#52728a;font-weight:300;line-height:1.8;">
         <b style="color:#e2e8f0;">JobShield AI</b> is a machine learning-powered fake job detection system 
         trained on thousands of real and fraudulent job postings using TF-IDF vectorization 
         and a classification model.<br><br>
         Built to protect job seekers from online fraud, phishing, and financial scams 
         disguised as employment opportunities.<br><br>
-        <span style="color:#38bdf8;font-family:'Orbitron',monospace;font-size:12px;">
+        <span style="color:#38bdf8;font-family:'DM Mono', monospace;font-size:12px;letter-spacing:1px;">
         </span>
     </div>
     """, unsafe_allow_html=True)
