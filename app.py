@@ -248,31 +248,39 @@ st.markdown("""
 .block-container { padding-top: 2rem !important; }
 
 /* ── TYPOGRAPHY ── */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
-/* Main title — elegant serif with light gradient */
+html, body, [class*="css"] { font-family: 'Rajdhani', sans-serif; }
+
+/* Main title — Orbitron cyberpunk gradient */
 .main-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(30px, 5vw, 54px);
-    font-weight: 800;
-    font-style: normal;
-    letter-spacing: -1.5px;
-    line-height: 1.05;
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 1.1;
     margin-bottom: 4px;
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 40%, #7dd3fc 100%);
+    background: linear-gradient(135deg, #00e5ff 0%, #7b68ee 50%, #ff6ec7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: title-shimmer 4s ease-in-out infinite;
 }
 
-/* Subtitle — airy, spaced uppercase */
+@keyframes title-shimmer {
+    0%, 100% { filter: brightness(1); }
+    50%       { filter: brightness(1.25) drop-shadow(0 0 20px #00e5ff80); }
+}
+
+/* Subtitle */
 .subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    color: #64748b;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #6fa8c8;
     margin-top: 8px;
-    letter-spacing: 0.2px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     line-height: 1.5;
 }
 
@@ -290,17 +298,16 @@ st.markdown("""
 
 /* ── SECTION HEADER ── */
 .section-header {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Orbitron', monospace;
     font-size: 11px;
     font-weight: 700;
-    color: #38bdf8;
+    color: #00e5ff;
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
-    opacity: 0.8;
 }
 
 .section-header::after {
@@ -313,44 +320,52 @@ st.markdown("""
 /* ── TEXTAREA ── */
 .stTextArea textarea {
     background: rgba(2, 8, 20, 0.85) !important;
-    color: #e2e8f0 !important;
-    border: 1.5px solid rgba(56,189,248,0.2) !important;
+    color: #e2f0ff !important;
+    border: 1.5px solid rgba(0,229,255,0.2) !important;
     border-radius: 16px !important;
     padding: 18px !important;
     font-size: 15px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 300 !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-weight: 400 !important;
     min-height: 220px !important;
     transition: border-color 0.3s !important;
     resize: vertical !important;
 }
 
 .stTextArea textarea:focus {
-    border-color: rgba(56,189,248,0.6) !important;
-    box-shadow: 0 0 0 3px rgba(56,189,248,0.08) !important;
+    border-color: rgba(0,229,255,0.6) !important;
+    box-shadow: 0 0 0 3px rgba(0,229,255,0.08) !important;
 }
 
 /* ── ANALYZE BUTTON ── */
 .stButton > button {
     width: 100% !important;
     height: 56px !important;
-    border-radius: 12px !important;
-    background: linear-gradient(90deg, #0369a1, #0891b2) !important;
-    color: #f0f9ff !important;
-    font-family: 'Outfit', sans-serif !important;
-    font-size: 14px !important;
+    border-radius: 14px !important;
+    background: linear-gradient(90deg, #003f5c, #1a1a6e, #003f5c) !important;
+    background-size: 200% 100% !important;
+    color: #00e5ff !important;
+    font-family: 'Orbitron', monospace !important;
+    font-size: 13px !important;
     font-weight: 700 !important;
-    letter-spacing: 1px !important;
+    letter-spacing: 3px !important;
     text-transform: uppercase !important;
-    border: 1px solid rgba(56,189,248,0.2) !important;
-    transition: all 0.25s ease !important;
-    box-shadow: 0 2px 16px rgba(8,145,178,0.2) !important;
+    border: 1px solid rgba(0,229,255,0.4) !important;
+    transition: all 0.4s ease !important;
+    box-shadow: 0 0 20px rgba(0,229,255,0.15), inset 0 0 20px rgba(0,229,255,0.03) !important;
+    animation: btn-sweep 3s ease infinite !important;
+}
+
+@keyframes btn-sweep {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
 }
 
 .stButton > button:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 32px rgba(8,145,178,0.5) !important;
-    background: linear-gradient(90deg, #0284c7, #06b6d4) !important;
+    border-color: #00e5ff !important;
+    color: white !important;
+    box-shadow: 0 0 40px rgba(0,229,255,0.4), 0 0 80px rgba(0,229,255,0.15) !important;
+    transform: translateY(-2px) scale(1.01) !important;
 }
 
 .stButton > button:active {
@@ -359,12 +374,12 @@ st.markdown("""
 
 /* ── FEATURE CARDS ── */
 .feature-card {
-    background: rgba(14, 26, 50, 0.5);
-    border: 1px solid rgba(56,189,248,0.1);
+    background: rgba(5, 20, 40, 0.7);
+    border: 1px solid rgba(0,229,255,0.15);
     border-radius: 20px;
     padding: 28px 18px;
     text-align: center;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     transition: all 0.3s ease;
     height: 220px;
     display: flex;
@@ -380,15 +395,15 @@ st.markdown("""
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #38bdf8, #22d3ee, transparent);
+    background: linear-gradient(90deg, #00e5ff, #7b68ee, transparent);
     opacity: 0;
     transition: opacity 0.3s;
 }
 
 .feature-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(56,189,248,0.3);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(56,189,248,0.1);
+    border-color: rgba(0,229,255,0.4);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(0,229,255,0.1);
 }
 
 .feature-card:hover::before { opacity: 1; }
@@ -396,20 +411,21 @@ st.markdown("""
 .feature-icon { font-size: 38px; margin-bottom: 14px; }
 
 .feature-card h3 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 13px;
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
     font-weight: 700;
-    color: #e2e8f0;
-    letter-spacing: 0.2px;
+    color: #00e5ff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     margin-bottom: 10px;
 }
 
 .feature-card p {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 300;
-    color: #4e6e84;
-    line-height: 1.7;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #6fa8c8;
+    line-height: 1.6;
     margin: 0;
 }
 
@@ -419,14 +435,15 @@ st.markdown("""
     border-radius: 14px;
     text-align: center;
     margin-top: 24px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 17px;
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
     font-weight: 700;
-    letter-spacing: 0.3px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     background: rgba(239, 68, 68, 0.08);
     border: 1px solid rgba(239,68,68,0.3);
     color: #fca5a5;
-    box-shadow: 0 0 24px rgba(239,68,68,0.1);
+    box-shadow: 0 0 24px rgba(239,68,68,0.15);
     animation: resultPop 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 
@@ -435,14 +452,15 @@ st.markdown("""
     border-radius: 14px;
     text-align: center;
     margin-top: 24px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 17px;
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
     font-weight: 700;
-    letter-spacing: 0.3px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     background: rgba(16, 185, 129, 0.08);
     border: 1px solid rgba(16,185,129,0.3);
     color: #6ee7b7;
-    box-shadow: 0 0 24px rgba(16,185,129,0.1);
+    box-shadow: 0 0 24px rgba(16,185,129,0.15);
     animation: resultPop 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 
@@ -476,28 +494,28 @@ st.markdown("""
 
 /* ── METRIC CARD ── */
 .metric-card {
-    background: rgba(14, 26, 50, 0.6);
-    border: 1px solid rgba(56,189,248,0.1);
+    background: rgba(5, 20, 40, 0.7);
+    border: 1px solid rgba(0,229,255,0.12);
     border-radius: 16px;
     padding: 22px 20px;
     text-align: center;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
 }
 
 .metric-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 3.5px;
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    color: #4a6a82;
+    color: #4a8fa8;
     margin-bottom: 10px;
 }
 
 .metric-value {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Orbitron', monospace;
     font-size: 36px;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: -1px;
     line-height: 1;
 }
@@ -511,9 +529,11 @@ st.markdown("""
     border: 1px solid rgba(245,158,11,0.25);
     border-radius: 12px;
     padding: 14px 18px;
-    font-size: 13px;
+    font-size: 14px;
     color: #fbbf24;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -526,11 +546,11 @@ st.markdown("""
     gap: 12px;
     padding: 12px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
     color: #8aa4be;
-    line-height: 1.7;
-    font-weight: 300;
+    line-height: 1.6;
+    font-weight: 400;
 }
 
 .tip-item:last-child { border-bottom: none; }
@@ -548,36 +568,36 @@ st.markdown("""
     justify-content: space-between;
     padding: 16px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
 }
 
 .settings-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
     color: #c8daea;
-    font-weight: 500;
-    letter-spacing: 0.2px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .settings-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 300;
-    color: #3d5a6e;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #4a7a8a;
     margin-top: 3px;
     letter-spacing: 0.5px;
 }
 
 .badge-on {
-    background: rgba(16,185,129,0.1);
-    border: 1px solid rgba(16,185,129,0.25);
-    color: #34d399;
+    background: rgba(0,255,157,0.1);
+    border: 1px solid rgba(0,255,157,0.3);
+    color: #00ff9d;
     padding: 4px 12px;
     border-radius: 20px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1px;
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
 }
 
 /* ── FOOTER ── */
@@ -587,9 +607,9 @@ st.markdown("""
     font-size: 11px;
     margin-top: 60px;
     padding-bottom: 40px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    letter-spacing: 2px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    letter-spacing: 3px;
     text-transform: uppercase;
 }
 
@@ -614,10 +634,11 @@ st.markdown("""
     border-radius: 10px !important;
     padding: 8px 14px !important;
     color: #475569 !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.5px !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
     transition: all 0.2s !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
@@ -679,6 +700,281 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+
+
+# ─────────────────────────────────────────────
+#  PREMIUM TEXT + FONT DESIGN OVERRIDE
+#  MED.AI inspired cyber typography
+# ─────────────────────────────────────────────
+
+st.markdown("""
+<style>
+/* ═══════════════════════════════════════════════
+   PREMIUM CYBER TEXT SYSTEM — JOBSHIELD AI
+═══════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Rajdhani', sans-serif !important;
+}
+
+/* Main title upgraded like MED.AI */
+.main-title {
+    font-family: 'Orbitron', monospace !important;
+    font-size: clamp(34px, 5.8vw, 64px) !important;
+    font-weight: 900 !important;
+    letter-spacing: 3px !important;
+    line-height: 1.05 !important;
+    text-transform: uppercase !important;
+    margin-bottom: 8px !important;
+    background: linear-gradient(135deg, #00e5ff 0%, #7b68ee 48%, #ff6ec7 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    filter: drop-shadow(0 0 18px rgba(0,229,255,0.25)) !important;
+    animation: jobshield-title-shimmer 4s ease-in-out infinite !important;
+}
+
+@keyframes jobshield-title-shimmer {
+    0%, 100% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,229,255,0.18)); }
+    50% { filter: brightness(1.28) drop-shadow(0 0 28px rgba(0,229,255,0.45)); }
+}
+
+.subtitle {
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: clamp(13px, 1.7vw, 18px) !important;
+    font-weight: 600 !important;
+    color: #8fdfff !important;
+    letter-spacing: 4px !important;
+    text-transform: uppercase !important;
+    line-height: 1.6 !important;
+    text-shadow: 0 0 18px rgba(0,229,255,0.12) !important;
+}
+
+/* Premium section heading */
+.section-header {
+    font-family: 'Orbitron', monospace !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    color: #00e5ff !important;
+    letter-spacing: 3.5px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-shadow: 0 0 12px rgba(0,229,255,0.35) !important;
+}
+.section-header::before {
+    content: '⬡';
+    color: #7b68ee;
+    font-size: 13px;
+    text-shadow: 0 0 12px rgba(123,104,238,0.5);
+}
+.section-header::after {
+    content: '' !important;
+    flex: 1 !important;
+    height: 1px !important;
+    background: linear-gradient(90deg, rgba(0,229,255,0.45), rgba(123,104,238,0.22), transparent) !important;
+}
+
+/* Glass cards more premium */
+.glass-card {
+    background: rgba(5, 20, 40, 0.72) !important;
+    border: 1px solid rgba(0,229,255,0.18) !important;
+    border-radius: 28px !important;
+    padding: 36px !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow:
+        0 0 0 1px rgba(0,229,255,0.05),
+        0 20px 60px rgba(0,0,0,0.45),
+        0 0 80px rgba(0,229,255,0.06) !important;
+}
+
+/* Feature titles */
+.feature-card h3 {
+    font-family: 'Orbitron', monospace !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    color: #00e5ff !important;
+    letter-spacing: 2.5px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 12px !important;
+    text-shadow: 0 0 14px rgba(0,229,255,0.28) !important;
+}
+.feature-card p,
+.tip-item,
+.settings-label,
+.settings-sub {
+    font-family: 'Rajdhani', sans-serif !important;
+}
+.feature-card p {
+    color: #8fb8cc !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.7 !important;
+}
+.feature-card {
+    background: rgba(5,20,40,0.75) !important;
+    border: 1px solid rgba(0,229,255,0.16) !important;
+    border-radius: 22px !important;
+}
+
+/* Input typography */
+.stTextArea textarea {
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.6px !important;
+    color: #e2f0ff !important;
+}
+.stTextArea textarea::placeholder {
+    color: #5f8ca8 !important;
+    letter-spacing: 0.7px !important;
+}
+
+/* Button like MED.AI */
+.stButton > button {
+    font-family: 'Orbitron', monospace !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    letter-spacing: 3.5px !important;
+    text-transform: uppercase !important;
+    color: #00e5ff !important;
+    border-radius: 18px !important;
+    min-height: 60px !important;
+    background: linear-gradient(90deg, #003f5c, #1a1a6e, #003f5c) !important;
+    background-size: 220% 100% !important;
+    border: 1px solid rgba(0,229,255,0.45) !important;
+    box-shadow: 0 0 24px rgba(0,229,255,0.16), inset 0 0 22px rgba(0,229,255,0.05) !important;
+}
+
+/* Result verdict bigger and cleaner */
+.result-fake,
+.result-real {
+    font-family: 'Orbitron', monospace !important;
+    font-size: clamp(17px, 2.3vw, 28px) !important;
+    font-weight: 900 !important;
+    letter-spacing: 3px !important;
+    border-radius: 24px !important;
+    padding: 30px 26px !important;
+    text-transform: uppercase !important;
+}
+
+/* Confidence metric */
+.metric-label {
+    font-family: 'Orbitron', monospace !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 3.2px !important;
+    color: #4a8fa8 !important;
+}
+.metric-value {
+    font-family: 'Orbitron', monospace !important;
+    font-size: clamp(38px, 5vw, 54px) !important;
+    font-weight: 900 !important;
+    letter-spacing: -1px !important;
+    filter: drop-shadow(0 0 16px rgba(0,229,255,0.12)) !important;
+}
+
+/* Tips text */
+.tip-item {
+    font-size: 16px !important;
+    color: #9ec8d8 !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.4px !important;
+}
+.tip-item b {
+    color: #e2f0ff !important;
+    font-weight: 700 !important;
+}
+
+/* Settings */
+.settings-label {
+    font-size: 16px !important;
+    color: #d8efff !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.2px !important;
+}
+.settings-sub {
+    color: #6fa8c8 !important;
+    font-size: 13px !important;
+}
+.badge-on {
+    font-family: 'Orbitron', monospace !important;
+    font-weight: 900 !important;
+}
+
+/* Tabs premium */
+.stTabs [data-baseweb="tab"] {
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+    color: #8ec9e8 !important;
+}
+.stTabs [aria-selected="true"] {
+    color: #00e5ff !important;
+    background: rgba(0,229,255,0.14) !important;
+    border: 1px solid rgba(0,229,255,0.35) !important;
+    box-shadow: 0 0 18px rgba(0,229,255,0.12) !important;
+}
+
+/* Footer upgraded */
+.footer {
+    font-family: 'Orbitron', monospace !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    letter-spacing: 3px !important;
+    color: #315b70 !important;
+    text-transform: uppercase !important;
+    text-shadow: 0 0 12px rgba(0,229,255,0.12) !important;
+}
+
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 34px !important;
+        letter-spacing: 1.5px !important;
+    }
+    .subtitle {
+        font-size: 12px !important;
+        letter-spacing: 2px !important;
+    }
+    .glass-card {
+        padding: 20px 16px !important;
+        border-radius: 20px !important;
+    }
+    .section-header {
+        font-size: 10px !important;
+        letter-spacing: 2px !important;
+    }
+    .stButton > button {
+        font-size: 12px !important;
+        letter-spacing: 1.5px !important;
+        min-height: 52px !important;
+    }
+    .result-fake,
+    .result-real {
+        font-size: 17px !important;
+        letter-spacing: 1.5px !important;
+        padding: 22px 16px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .main-title {
+        font-size: 28px !important;
+        letter-spacing: 1px !important;
+    }
+    .subtitle {
+        font-size: 11px !important;
+        letter-spacing: 1px !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
+
 # ─────────────────────────────────────────────
 #  HEADER
 # ─────────────────────────────────────────────
@@ -693,7 +989,7 @@ with col_logo:
 
 with col_title:
     st.markdown('<div class="main-title">JobShield AI</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">AI-powered Fake Job Posting Detection System</div>', unsafe_allow_html=True)
+    st.markdown('<div class="subtitle">Next Generation AI Fraud Detection Platform</div>', unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -754,7 +1050,7 @@ with tab_home:
         with col:
             st.markdown(f"""
             <div class="feature-card">
-                <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:38px;font-weight:800;color:{color};margin-bottom:10px;">{num}</div>
+                <div style="font-family:'Orbitron',monospace;font-size:38px;font-weight:800;color:{color};margin-bottom:10px;">{num}</div>
                 <h3>{title}</h3>
                 <p>{desc}</p>
             </div>
@@ -784,7 +1080,7 @@ with tab_analyze:
 
     btn_col, _ = st.columns([2, 1])
     with btn_col:
-        analyze_clicked = st.button("🔍  ANALYZE JOB POSTING", key="analyze_btn")
+        analyze_clicked = st.button("⬡  ANALYZE JOB POSTING  ⬡", key="analyze_btn")
 
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -859,14 +1155,14 @@ with tab_analyze:
             if int(prediction) == 1:
                 st.markdown("""
                 <div class="result-fake">
-                    🚨 &nbsp; FAKE JOB POSTING DETECTED
+                    🚨 &nbsp; AI FRAUD ALERT: FAKE JOB DETECTED
                 </div>
                 """, unsafe_allow_html=True)
                 st.warning("⚠️ Do NOT apply or share any personal/banking information. Report this posting to the platform.")
             else:
                 st.markdown("""
                 <div class="result-real">
-                    ✅ &nbsp; REAL JOB POSTING
+                    ✅ &nbsp; AI VERDICT: REAL JOB POSTING
                 </div>
                 """, unsafe_allow_html=True)
                 st.success("✅ This posting appears legitimate. Still verify the company independently before applying.")
@@ -882,14 +1178,14 @@ with tab_analyze:
 
             st.markdown(f"""
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <span style="font-size:13px;color:#475569;font-family:'Inter', sans-serif;font-weight:300;">Overall Fraud Risk</span>
-                <span style="font-family:'Inter', sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:{risk_color};">{risk_level}</span>
+                <span style="font-size:13px;color:#475569;font-family:'Rajdhani', sans-serif;font-weight:400;">Overall Fraud Risk</span>
+                <span style="font-family:'Rajdhani', sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:{risk_color};">{risk_level}</span>
             </div>
             """, unsafe_allow_html=True)
             st.progress(int(fake_pct))
 
             st.markdown(f"""
-            <div style="margin-top:16px;font-family:'Inter', sans-serif;font-size:13px;color:#52728a;line-height:1.7;font-weight:300;">
+            <div style="margin-top:16px;font-family:'Rajdhani', sans-serif;font-size:13px;color:#52728a;line-height:1.7;font-weight:400;">
                 Final confidence: <span style="color:#e2e8f0;font-weight:600;">{max(fake_pct, real_pct):.1f}%</span> &nbsp;·&nbsp;
                 Raw model fake score: <span style="color:#e2e8f0;font-weight:600;">{raw_fake_pct:.1f}%</span> &nbsp;·&nbsp;
                 Prediction: <span style="color:{risk_color};font-weight:600;">{'Fraudulent' if prediction == 1 else 'Legitimate'}</span>
@@ -982,13 +1278,13 @@ with tab_settings:
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
     st.markdown('<div class="section-header">ℹ️ About</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div style="font-family:'Inter', sans-serif;font-size:14px;color:#52728a;font-weight:300;line-height:1.8;">
+    <div style="font-family:'Rajdhani', sans-serif;font-size:14px;color:#52728a;font-weight:400;line-height:1.8;">
         <b style="color:#e2e8f0;">JobShield AI</b> is a machine learning-powered fake job detection system 
         trained on thousands of real and fraudulent job postings using TF-IDF vectorization 
         and a classification model.<br><br>
         Built to protect job seekers from online fraud, phishing, and financial scams 
         disguised as employment opportunities.<br><br>
-        <span style="color:#38bdf8;font-family:'JetBrains Mono', monospace;font-size:12px;letter-spacing:1px;">
+        <span style="color:#38bdf8;font-family:'Orbitron', monospace;font-size:12px;letter-spacing:1px;">
         </span>
     </div>
     """, unsafe_allow_html=True)
@@ -1003,6 +1299,6 @@ with tab_settings:
 
 st.markdown("""
 <div class="footer">
-    JobShield AI &nbsp;·&nbsp; Made by Chandan &nbsp;·&nbsp; Protecting Job Seekers
+    ⬡ JOBSHIELD AI · POWERED BY CHANDAN · PROTECTING JOB SEEKERS ⬡
 </div>
 """, unsafe_allow_html=True)
