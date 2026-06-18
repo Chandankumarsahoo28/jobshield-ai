@@ -191,6 +191,7 @@ def load_model():
         st.stop()
 
 model, vectorizer = load_model()
+model_loaded = model is not None and vectorizer is not None
 
 # ─────────────────────────────────────────────
 #  BETTER FAKE DETECTION HELPERS
@@ -247,11 +248,11 @@ st.markdown("""
 .block-container { padding-top: 2rem !important; }
 
 /* ── TYPOGRAPHY ── */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
 /* Main title — elegant serif with light gradient */
 .main-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: clamp(30px, 5vw, 54px);
     font-weight: 800;
     font-style: normal;
@@ -266,7 +267,7 @@ st.markdown("""
 
 /* Subtitle — airy, spaced uppercase */
 .subtitle {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 400;
     color: #64748b;
@@ -289,7 +290,7 @@ st.markdown("""
 
 /* ── SECTION HEADER ── */
 .section-header {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 11px;
     font-weight: 700;
     color: #38bdf8;
@@ -317,7 +318,7 @@ st.markdown("""
     border-radius: 16px !important;
     padding: 18px !important;
     font-size: 15px !important;
-    font-family: 'DM Sans', sans-serif !important;
+    font-family: 'Inter', sans-serif !important;
     font-weight: 300 !important;
     min-height: 220px !important;
     transition: border-color 0.3s !important;
@@ -336,7 +337,7 @@ st.markdown("""
     border-radius: 12px !important;
     background: linear-gradient(90deg, #0369a1, #0891b2) !important;
     color: #f0f9ff !important;
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-family: 'Outfit', sans-serif !important;
     font-size: 14px !important;
     font-weight: 700 !important;
     letter-spacing: 1px !important;
@@ -361,11 +362,11 @@ st.markdown("""
     background: rgba(14, 26, 50, 0.5);
     border: 1px solid rgba(56,189,248,0.1);
     border-radius: 20px;
-    padding: 28px 22px;
+    padding: 28px 18px;
     text-align: center;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     transition: all 0.3s ease;
-    min-height: 220px;
+    height: 220px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -395,7 +396,7 @@ st.markdown("""
 .feature-icon { font-size: 38px; margin-bottom: 14px; }
 
 .feature-card h3 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 13px;
     font-weight: 700;
     color: #e2e8f0;
@@ -404,7 +405,7 @@ st.markdown("""
 }
 
 .feature-card p {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 300;
     color: #4e6e84;
@@ -418,7 +419,7 @@ st.markdown("""
     border-radius: 14px;
     text-align: center;
     margin-top: 24px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 17px;
     font-weight: 700;
     letter-spacing: 0.3px;
@@ -434,7 +435,7 @@ st.markdown("""
     border-radius: 14px;
     text-align: center;
     margin-top: 24px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 17px;
     font-weight: 700;
     letter-spacing: 0.3px;
@@ -480,11 +481,11 @@ st.markdown("""
     border-radius: 16px;
     padding: 22px 20px;
     text-align: center;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .metric-label {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
     font-weight: 400;
     letter-spacing: 3.5px;
@@ -494,7 +495,7 @@ st.markdown("""
 }
 
 .metric-value {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: 36px;
     font-weight: 800;
     letter-spacing: -1px;
@@ -512,7 +513,7 @@ st.markdown("""
     padding: 14px 18px;
     font-size: 13px;
     color: #fbbf24;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -525,7 +526,7 @@ st.markdown("""
     gap: 12px;
     padding: 12px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     color: #8aa4be;
     line-height: 1.7;
@@ -547,11 +548,11 @@ st.markdown("""
     justify-content: space-between;
     padding: 16px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .settings-label {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     color: #c8daea;
     font-weight: 500;
@@ -559,7 +560,7 @@ st.markdown("""
 }
 
 .settings-sub {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 11px;
     font-weight: 300;
     color: #3d5a6e;
@@ -573,7 +574,7 @@ st.markdown("""
     color: #34d399;
     padding: 4px 12px;
     border-radius: 20px;
-    font-family: 'DM Mono', monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 1px;
@@ -586,7 +587,7 @@ st.markdown("""
     font-size: 11px;
     margin-top: 60px;
     padding-bottom: 40px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -613,7 +614,7 @@ st.markdown("""
     border-radius: 10px !important;
     padding: 8px 14px !important;
     color: #475569 !important;
-    font-family: 'DM Sans', sans-serif !important;
+    font-family: 'Inter', sans-serif !important;
     font-size: 13px !important;
     font-weight: 500 !important;
     letter-spacing: 0.5px !important;
@@ -881,14 +882,14 @@ with tab_analyze:
 
             st.markdown(f"""
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <span style="font-size:13px;color:#475569;font-family:'DM Sans', sans-serif;font-weight:300;">Overall Fraud Risk</span>
-                <span style="font-family:'DM Sans', sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:{risk_color};">{risk_level}</span>
+                <span style="font-size:13px;color:#475569;font-family:'Inter', sans-serif;font-weight:300;">Overall Fraud Risk</span>
+                <span style="font-family:'Inter', sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:{risk_color};">{risk_level}</span>
             </div>
             """, unsafe_allow_html=True)
             st.progress(int(fake_pct))
 
             st.markdown(f"""
-            <div style="margin-top:16px;font-family:'DM Sans', sans-serif;font-size:13px;color:#52728a;line-height:1.7;font-weight:300;">
+            <div style="margin-top:16px;font-family:'Inter', sans-serif;font-size:13px;color:#52728a;line-height:1.7;font-weight:300;">
                 Final confidence: <span style="color:#e2e8f0;font-weight:600;">{max(fake_pct, real_pct):.1f}%</span> &nbsp;·&nbsp;
                 Raw model fake score: <span style="color:#e2e8f0;font-weight:600;">{raw_fake_pct:.1f}%</span> &nbsp;·&nbsp;
                 Prediction: <span style="color:{risk_color};font-weight:600;">{'Fraudulent' if prediction == 1 else 'Legitimate'}</span>
@@ -981,17 +982,20 @@ with tab_settings:
     st.markdown('<div class="glass-card">', unsafe_allow_html=True)
     st.markdown('<div class="section-header">ℹ️ About</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div style="font-family:'DM Sans', sans-serif;font-size:14px;color:#52728a;font-weight:300;line-height:1.8;">
+    <div style="font-family:'Inter', sans-serif;font-size:14px;color:#52728a;font-weight:300;line-height:1.8;">
         <b style="color:#e2e8f0;">JobShield AI</b> is a machine learning-powered fake job detection system 
         trained on thousands of real and fraudulent job postings using TF-IDF vectorization 
         and a classification model.<br><br>
         Built to protect job seekers from online fraud, phishing, and financial scams 
         disguised as employment opportunities.<br><br>
-        <span style="color:#38bdf8;font-family:'DM Mono', monospace;font-size:12px;letter-spacing:1px;">
+        <span style="color:#38bdf8;font-family:'JetBrains Mono', monospace;font-size:12px;letter-spacing:1px;">
         </span>
     </div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
+
+
+
 
 # ─────────────────────────────────────────────
 #  FOOTER
